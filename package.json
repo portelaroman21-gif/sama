@@ -1,0 +1,29 @@
+{
+  "name": "sama-forwarding-web",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rediseño web 2026 — SAMA Forwarding. Corredor China–Manzanillo–Bajío.",
+  "main": "server.js",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "build": "node build.mjs",
+    "wireframes": "node scripts/gen-wireframes.mjs",
+    "db:init": "node src/db/init.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
+    "compression": "^1.7.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "nodemailer": "^6.10.1",
+    "pg": "^8.13.1",
+    "sharp": "^0.33.5",
+    "ws": "^8.21.3"
+  }
+}
