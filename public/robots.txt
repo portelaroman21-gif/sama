@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /prototipo/
+Disallow: /diagnostico-logistico/gracias/
+Disallow: /contacto/gracias/
+
+Sitemap: https://www.samaforwarding.com/sitemap.xml

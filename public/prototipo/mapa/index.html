@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mapa del Corredor — Prototipo SAMA Forwarding</title>
+  <link rel="preload" href="/assets/fonts/montserrat-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/fonts.css">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/corridor-map.css">
+  <style>
+    .pm-head { background: var(--color-azul-profundo); color:#fff; padding: var(--space-6) 0; }
+    .pm-variant { border-top: 1px solid #e6ebf0; }
+    .pm-tag { display:inline-block; background:var(--color-azul-claro); color:var(--color-azul-profundo);
+      font-size:.75rem; font-weight:700; padding:3px 10px; border-radius:4px; letter-spacing:.04em; }
+    .pm-help { font-size:.85rem; color:var(--color-texto-muted); }
+  </style>
+</head>
+<body>
+  <header class="pm-head">
+    <div class="container">
+      <span class="label" style="color:var(--color-azul-sama)">Módulo 2 · Componente estrella · Prototipo</span>
+      <h1>Mapa del Corredor</h1>
+      <p class="lead">China → Tránsito marítimo → Puerto Manzanillo → Ruta terrestre → Bajío.</p>
+      <p class="pm-help" style="color:#cfe6f7">SVG dibujado (no Google Maps). Pasá el mouse o tocá cada punto · navegable con teclado (Tab + ←/→ + Enter).</p>
+    </div>
+  </header>
+
+  <!-- VARIANTE FULL (página Corredor) -->
+  <section class="section pm-variant">
+    <div class="container">
+      <span class="pm-tag">Variante FULL — página Corredor</span>
+      <h2 style="margin:.75rem 0 1.5rem">Recorrido completo</h2>
+      <div data-corridor-map data-variant="full"></div>
+    </div>
+  </section>
+
+  <!-- VARIANTE COMPACT (Home) -->
+  <section class="section pm-variant section--soft">
+    <div class="container">
+      <span class="pm-tag">Variante COMPACT — Home</span>
+      <h2 style="margin:.75rem 0 1.5rem">Resumen del corredor</h2>
+      <div data-corridor-map data-variant="compact"></div>
+    </div>
+  </section>
+
+  <!-- VARIANTE STATIC (subpáginas de servicio) -->
+  <section class="section pm-variant">
+    <div class="container">
+      <span class="pm-tag">Variante STATIC — subpáginas de servicio</span>
+      <h2 style="margin:.75rem 0 1.5rem">Cómo opera dentro del corredor</h2>
+      <p class="pm-help" style="margin-bottom:1rem">Sin panel interactivo: solo muestra el recorrido como contexto.</p>
+      <div data-corridor-map data-variant="static"></div>
+    </div>
+  </section>
+
+  <footer style="background:var(--color-gris-corp);color:#fff;padding:var(--space-5) 0;text-align:center;font-size:.85rem">
+    <div class="container">Prototipo de validación · No indexable · SAMA Forwarding 2026</div>
+  </footer>
+
+  <script defer src="/assets/js/waypoints.js"></script>
+  <script defer src="/assets/js/corridor-map.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/* ============================================================
+   Blog público (listado + artículo). Usa los tokens del sitio.
+   Carga después de components.css.
+   ============================================================ */
+
+/* ---- Hero del listado ---- */
+.blog-hero {
+  padding-block: var(--space-7) var(--space-5);
+  background: var(--color-azul-profundo);
+  color: var(--color-blanco);
+}
+.blog-hero .label { color: var(--color-azul-claro); }
+.blog-hero h1 { margin: var(--space-2) 0 var(--space-3); max-width: 20ch; }
+.blog-hero p { color: rgba(255, 255, 255, .82); max-width: 60ch; margin: 0; }
+
+/* ---- Chips de categoría ---- */
+.blog-list-wrap { padding-block: var(--space-6) var(--space-8); }
+.blog-chips {
+  display: flex; flex-wrap: wrap; gap: var(--space-2);
+  margin-bottom: var(--space-5);
+}
+.blog-chip {
+  display: inline-flex; align-items: center; gap: .4em;
+  padding: .5em 1em; border-radius: 999px;
+  border: 1px solid rgba(14, 118, 188, .25);
+  color: var(--color-texto); background: var(--color-blanco);
+  font-size: var(--fs-small); font-weight: var(--fw-semibold);
+  text-decoration: none; transition: background var(--t-fast), color var(--t-fast);
+}
+.blog-chip span { opacity: .55; font-weight: var(--fw-regular); }
+.blog-chip:hover { background: var(--color-azul-claro); }
+.blog-chip.is-active { background: var(--color-azul-sama); color: var(--color-blanco); border-color: transparent; }
+.blog-chip.is-active span { opacity: .8; }
+
+/* ---- Grilla de tarjetas ---- */
+.blog-grid {
+  display: grid; gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.blog-card {
+  display: flex; flex-direction: column;
+  background: var(--color-blanco); border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-card);
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.blog-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-soft); }
+.blog-card-media { display: block; aspect-ratio: 16 / 9; background: var(--color-azul-claro); overflow: hidden; }
+.blog-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.blog-card-body { padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2); flex: 1; }
+.blog-card-cat {
+  font-size: var(--fs-small); font-weight: var(--fw-bold);
+  color: var(--color-azul-sama); text-transform: uppercase; letter-spacing: .04em;
+}
+.blog-card-title { font-size: var(--fs-h3); line-height: var(--lh-tight); margin: 0; }
+.blog-card-title a { color: var(--color-azul-profundo); text-decoration: none; }
+.blog-card-title a:hover { color: var(--color-azul-sama); }
+.blog-card-excerpt { font-family: var(--blog-font-desc, inherit); color: var(--color-texto-muted); margin: 0; font-size: var(--fs-body); }
+.blog-card-meta { margin: auto 0 0; color: var(--color-texto-muted); font-size: var(--fs-small); }
+.blog-empty { color: var(--color-texto-muted); padding-block: var(--space-6); }
+
+/* ============================================================
+   Artículo individual
+   ============================================================ */
+.art { padding-block: var(--space-6) var(--space-8); }
+.art-container { max-width: 760px; }
+
+.art-cats { display: flex; flex-wrap: wrap; gap: .6em; margin: 0 0 var(--space-2); }
+.art-cats a {
+  font-size: var(--fs-small); font-weight: var(--fw-bold); text-transform: uppercase;
+  letter-spacing: .04em; color: var(--color-azul-sama); text-decoration: none;
+}
+.art-cats a:hover { text-decoration: underline; }
+.art-head h1 { margin: 0 0 var(--space-4); line-height: var(--lh-tight); }
+
+/* Bloque de autor (D.3) */
+.art-author { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-5); }
+.art-author-foto {
+  width: 52px; height: 52px; border-radius: 50%; object-fit: cover;
+  flex-shrink: 0; box-shadow: 0 0 0 2px var(--color-azul-claro);
+}
+.art-author-meta { display: flex; flex-direction: column; line-height: 1.35; }
+.art-author-name { font-weight: var(--fw-bold); color: var(--color-azul-profundo); }
+.art-author-role { font-size: var(--fs-small); color: var(--color-texto-muted); }
+.art-author-date { font-size: var(--fs-small); color: var(--color-texto-muted); }
+
+/* Imagen destacada */
+.art-hero-media { margin: 0 0 var(--space-5); }
+.art-hero-media img {
+  width: 100%; height: auto; border-radius: var(--radius-lg); display: block; aspect-ratio: 16 / 9; object-fit: cover;
+}
+.art-hero-media figcaption {
+  font-family: var(--blog-font-desc, inherit);
+  font-size: var(--fs-small); color: var(--color-texto-muted);
+  margin-top: var(--space-2); text-align: center;
+}
+
+/* Cuerpo del artículo — tipografía del HTML que produce el editor.
+   Las variables --blog-* se inyectan desde Configuración (tokens, Módulo F);
+   si no están definidas, se usa el fallback (tokens del sitio). */
+.art-body { font-family: var(--blog-font-body, inherit); font-size: var(--blog-size-body, 1.08rem); line-height: 1.75; color: var(--color-texto); }
+.art-body > *:first-child { margin-top: 0; }
+.art-body h2 { font-family: var(--blog-font-head, inherit); font-size: var(--blog-size-h2, var(--fs-h2)); line-height: var(--lh-tight); margin: var(--space-6) 0 var(--space-3); color: var(--color-azul-profundo); }
+.art-body h3 { font-family: var(--blog-font-head, inherit); font-size: var(--blog-size-h3, var(--fs-h3)); line-height: var(--lh-tight); margin: var(--space-5) 0 var(--space-2); color: var(--color-azul-profundo); }
+.art-body p { margin: 0 0 var(--space-4); }
+.art-body strong { font-weight: var(--fw-bold); }
+.art-body a { color: var(--color-azul-sama); }
+.art-body ul, .art-body ol { margin: 0 0 var(--space-4) 1.4em; padding: 0; }
+.art-body li { margin-bottom: .4em; }
+.art-body img { max-width: 100%; height: auto; border-radius: var(--radius); margin: var(--space-4) 0; }
+.art-body figure { margin: var(--space-4) 0; }
+.art-body figcaption { font-family: var(--blog-font-desc, inherit); font-size: var(--fs-small); color: var(--color-texto-muted); text-align: center; margin-top: var(--space-2); }
+.art-body iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--radius); margin: var(--space-4) 0; }
+.art-body blockquote {
+  margin: var(--space-4) 0; padding: var(--space-2) var(--space-4);
+  border-left: 3px solid var(--color-azul-sama); color: var(--color-texto-muted); font-style: italic;
+}
+.art-body hr { border: 0; height: 1px; background: rgba(0, 0, 0, .1); margin: var(--space-6) 0; }
+
+/* Relacionados */
+.art-related { margin-top: var(--space-8); border-top: 1px solid rgba(0, 0, 0, .08); padding-top: var(--space-5); }
+.art-related > h2 { font-size: var(--fs-h3); margin: 0 0 var(--space-4); }
+.blog-grid--related { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4); }
+.blog-grid--related .blog-card-title { font-size: 1.05rem; }
+
+@media (max-width: 560px) {
+  .blog-hero { padding-block: var(--space-6) var(--space-4); }
+  .art-body { font-size: 1.02rem; }
+}

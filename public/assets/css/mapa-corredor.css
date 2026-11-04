@@ -1,0 +1,120 @@
+/* ============================================================
+   Mapa interactivo del corredor por etapas — estilos.
+   Reimplementación del handoff de Claude Design (integrado al sitio).
+   ============================================================ */
+.mc { font-family: var(--font-base); color: #13243f; }
+.mc button { font-family: inherit; }
+@keyframes mc-ringpulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.14); } }
+
+/* ---- Encabezado del widget (título + pills) ---- */
+.mc-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.mc-title-block { flex: 1 1 360px; min-width: 280px; }
+.mc-h2 { font-size: clamp(22px, 3.4vw, 38px); font-weight: 800; line-height: 1.04; color: #13243f; letter-spacing: .5px; margin: 0; }
+.mc-h2 span { display: block; color: #1f6fb0; }
+.mc-tagline { display: flex; align-items: center; gap: 12px; margin: 12px 0 0; font-size: clamp(13px, 1.4vw, 17px); font-weight: 500; color: #3a4a63; }
+.mc-dash { width: 34px; height: 4px; background: #1f6fb0; border-radius: 2px; flex: none; }
+.mc-pills { flex: 0 1 480px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: #fff; border: 1px solid #e6edf3; border-radius: 14px; padding: 16px 14px; box-shadow: 0 6px 22px rgba(20,60,120,.06); }
+.mc-pill { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; }
+.mc-pill span { font-size: 10px; font-weight: 600; color: #3a4a63; line-height: 1.25; }
+
+/* ---- Mapa ---- */
+.mc { position: relative; }
+.mc-map { position: relative; width: 100%; aspect-ratio: 1200/520; margin-top: 18px; border-radius: 16px; background: linear-gradient(180deg, #eef4f9, #e6eef5); }
+/* overflow visible permite que las mini-cards salgan del borde sin cortarse;
+   las imágenes de los mapas y la ruta usan el ancho del contenedor. */
+.mc-map { overflow: visible; }
+.mc-map > img, .mc-map > svg { border-radius: 16px; }
+.mc-china { position: absolute; left: 0%; top: 18%; width: 36%; height: auto; pointer-events: none; border-radius: 0 !important; }
+.mc-mexico { position: absolute; left: 35.3%; top: 5%; width: 60%; height: auto; pointer-events: none; border-radius: 0 !important; }
+.mc-routes { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+.mc-flag { position: absolute; display: flex; align-items: center; gap: 7px; z-index: 4; }
+.mc-flag img { width: 24px; height: 16px; object-fit: cover; border-radius: 2px; display: block; box-shadow: 0 1px 2px rgba(0,0,0,.15); }
+.mc-flag span { font-size: clamp(11px, 1.3vw, 16px); font-weight: 700; color: #13243f; }
+.mc-flag--cn { left: 5%; top: 67%; transform: translateY(-50%); }
+.mc-flag--mx { left: 85%; top: 84%; }
+
+.mc-cities { position: absolute; display: flex; flex-direction: column; align-items: flex-start; gap: clamp(4px, .9vw, 8px); cursor: pointer; z-index: 4; background: none; border: 0; padding: 0; text-align: left; }
+.mc-cities--cn { left: 29.5%; top: 26%; }
+.mc-cities--cn span { font-size: clamp(9px, 1.1vw, 13px); font-weight: 700; color: #13243f; background: rgba(255,255,255,.88); padding: 2px 8px; border-radius: 20px; box-shadow: 0 1px 3px rgba(20,60,120,.12); white-space: nowrap; }
+.mc-cities--mx { left: 80.5%; top: 27%; gap: clamp(3px, .7vw, 7px); }
+.mc-cities--mx span { font-size: clamp(9px, 1.1vw, 13px); font-weight: 600; color: #13243f; }
+
+.mc-callout { position: absolute; left: 33%; top: 5%; width: clamp(150px, 18vw, 230px); background: #fff; border: 0; border-radius: 12px; padding: clamp(8px, 1vw, 14px); box-shadow: 0 8px 24px rgba(20,60,120,.14); cursor: pointer; z-index: 4; display: flex; gap: 9px; align-items: flex-start; text-align: left; }
+.mc-callout svg { flex: none; }
+.mc-callout-t { display: block; font-size: clamp(10px, 1.1vw, 13px); font-weight: 700; color: #13243f; }
+.mc-callout-d { display: block; font-size: clamp(10px, 1.1vw, 13px); font-weight: 700; color: #1f6fb0; }
+.mc-callout-s { display: block; font-size: clamp(8px, .95vw, 11px); color: #5a6b82; margin-top: 2px; line-height: 1.3; }
+
+.mc-manzanillo { position: absolute; left: 50%; top: 80%; font-size: clamp(11px, 1.4vw, 17px); font-weight: 800; letter-spacing: .5px; color: #13243f; z-index: 4; }
+
+.mc-badge { position: absolute; transform: translate(-50%,-50%); width: clamp(36px, 4.6vw, 52px); height: clamp(36px, 4.6vw, 52px); border: 0; border-radius: 50%; color: #fff; font-weight: 800; font-size: clamp(13px, 1.6vw, 19px); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(20,40,80,.35); z-index: 3; }
+.mc-ring { position: absolute; left: 50%; top: 50%; width: 148%; height: 148%; border: 3px solid; border-radius: 50%; transform: translate(-50%,-50%); opacity: 0; }
+.mc-badge.is-sel .mc-ring { opacity: 1; animation: mc-ringpulse 1.8s ease-in-out infinite; }
+
+/* ---- Tabs ---- */
+.mc-tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 18px; }
+.mc-tab { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: 10px; border: 2px solid var(--tab-color); cursor: pointer; transition: all .18s ease; background: #fff; color: #5a6b82; }
+.mc-tab.is-active { background: var(--tab-color); color: #fff; }
+.mc-tab-num { font-size: clamp(15px, 1.7vw, 20px); font-weight: 800; }
+.mc-tab-short { font-size: clamp(8px, .95vw, 11px); font-weight: 700; letter-spacing: .3px; line-height: 1.2; text-align: center; }
+
+/* ---- Panel de detalle ---- */
+.mc-detail { margin-top: 14px; border-radius: 16px; overflow: hidden; border: 1px solid #e6edf3; box-shadow: 0 10px 30px rgba(20,60,120,.07); background: #f6f9fc; display: flex; flex-direction: column; }
+.mc-detail > .mc-bar { width: 100%; height: 8px; flex: none; }
+.mc-detail-body { padding: clamp(18px, 2.4vw, 30px); }
+.mc-detail-head { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; flex-wrap: wrap; }
+.mc-num { width: clamp(44px, 5vw, 58px); height: clamp(44px, 5vw, 58px); border-radius: 50%; color: #fff; font-weight: 800; font-size: clamp(16px, 2vw, 24px); display: flex; align-items: center; justify-content: center; flex: none; }
+.mc-icon { display: flex; align-items: center; }
+.mc-title { font-size: clamp(18px, 2.4vw, 28px); font-weight: 800; line-height: 1.05; white-space: pre-line; }
+.mc-d1, .mc-d2 { font-size: clamp(13px, 1.4vw, 16px); color: #3a4a63; line-height: 1.5; margin: 0 0 12px; }
+.mc-d2 { margin-bottom: 0; }
+.mc-tagband { color: #fff; padding: clamp(12px, 1.6vw, 18px) clamp(18px, 2.4vw, 30px); font-size: clamp(12px, 1.4vw, 15px); font-weight: 600; line-height: 1.4; }
+
+/* Detalle: barra de color a la izquierda en desktop (como el diseño) */
+@media (min-width: 720px) {
+  .mc-detail { flex-direction: row; flex-wrap: wrap; }
+  .mc-detail > .mc-bar { width: 8px; height: auto; align-self: stretch; }
+  .mc-detail-body { flex: 1; }
+  .mc-tagband { flex-basis: 100%; }
+}
+
+/* ---- Lista SEO oculta ---- */
+.mc-seo { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* ---- Responsive: pills 2 col, tabs scroll en móvil ---- */
+@media (max-width: 560px) {
+  .mc-pills { grid-template-columns: repeat(2, 1fr); }
+  .mc-tabs { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .mc-tab { padding: 8px 3px; }
+}
+
+/* ---- Wrap + full-width (bleed) ---- */
+.mc-wrap { max-width: 1200px; margin-inline: auto; }
+.mc--bleed { width: 100vw; margin-left: calc(50% - 50vw); }
+.mc--bleed .mc-wrap { padding-inline: clamp(16px, 4vw, 28px); }
+
+/* ---- Mini-card al lado del punto (al hacer click en una insignia) ---- */
+/* display:none por defecto = oculto a prueba de bombas. JS añade .is-open. */
+.mc-minicard {
+  display: none;
+  position: absolute;
+  width: clamp(180px, 22vw, 240px);
+  background: #fff;
+  border-radius: 12px;
+  border-top: 4px solid var(--mc-color);
+  box-shadow: 0 12px 30px rgba(20,60,120,.25);
+  padding: 12px 14px;
+  z-index: 7;
+}
+.mc-minicard.is-open { display: block; }
+.mc-mini--right.is-open { transform: translate(calc(2em + 14px), -50%); }
+.mc-mini--left.is-open  { transform: translate(calc(-100% - 2em - 14px), -50%); }
+.mc-mini-head { display: flex; align-items: center; gap: 8px; }
+.mc-mini-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--mc-color); color: #fff; font-weight: 800; font-size: 12px; flex: none; }
+.mc-mini-titulo { font-size: clamp(12px, 1.15vw, 14px); font-weight: 700; color: var(--mc-color); margin: 0; line-height: 1.2; }
+.mc-minicard p { font-size: clamp(11px, 1.05vw, 13px); margin: .6rem 0 0; color: #3a4a63; line-height: 1.45; }
+/* Mobile: mini-card centrada arriba del mapa (no hay espacio al costado). */
+@media (max-width: 720px) {
+  .mc-minicard.is-open { width: min(86vw, 320px); left: 50% !important; top: 12px !important; transform: translateX(-50%); }
+}

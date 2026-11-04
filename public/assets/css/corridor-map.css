@@ -1,0 +1,76 @@
+/* ============================================================
+   Mapa del Corredor (Módulo 2) — estética premium "tablero".
+   ============================================================ */
+.cm { display: block; position: relative; }
+.cm-svg { width: 100%; height: auto; overflow: visible; display: block; }
+
+/* ---- Gradiente de marca (stop-color sí acepta var() vía CSS) ---- */
+.cm-grad-a { stop-color: var(--color-azul-profundo); }
+.cm-grad-b { stop-color: var(--color-azul-sama); }
+
+/* ---- Segmentos de ruta ---- */
+.cm-seg { fill: none; stroke: url(#cmGrad); stroke-width: 4; stroke-linecap: round; }
+.cm-seg--mar { opacity: .75; }            /* marítimo: onda (forma del path) + más tenue */
+.cm-seg--tierra { stroke-width: 5; }      /* terrestre: línea sólida más gruesa */
+
+/* Animación de dibujado izq→der, una sola vez */
+.cm-anim .cm-seg { stroke-dasharray: 1200; stroke-dashoffset: 1200; }
+.cm-anim.is-drawn .cm-seg { animation: cm-draw 1.6s ease forwards; }
+@keyframes cm-draw { to { stroke-dashoffset: 0; } }
+
+/* defs(1) + 4 segmentos(2–5) preceden a los nodos, que van en 6–10 */
+.cm-anim .cm-node { opacity: 0; transform: translateY(6px); }
+.cm-anim.is-drawn .cm-node { animation: cm-pop .5s ease forwards; }
+.cm-anim.is-drawn .cm-node:nth-child(6)  { animation-delay: .15s; }
+.cm-anim.is-drawn .cm-node:nth-child(7)  { animation-delay: .45s; }
+.cm-anim.is-drawn .cm-node:nth-child(8)  { animation-delay: .75s; }
+.cm-anim.is-drawn .cm-node:nth-child(9)  { animation-delay: 1.05s; }
+.cm-anim.is-drawn .cm-node:nth-child(10) { animation-delay: 1.35s; }
+@keyframes cm-pop { to { opacity: 1; transform: translateY(0); } }
+
+/* ---- Nodos ---- */
+.cm-node { cursor: pointer; outline: none; }
+.cm-halo { fill: var(--color-azul-sama); opacity: 0; transition: opacity var(--t-base); }
+.cm-dot {
+  fill: #fff; stroke: var(--color-azul-profundo); stroke-width: 3;
+  transition: fill var(--t-base), stroke var(--t-base);
+}
+.cm-ico { color: var(--color-azul-profundo); transition: color var(--t-base); }
+.cm-num { fill: var(--color-azul-sama); font-weight: 900; font-size: 22px; font-family: var(--font-base); }
+.cm-label { fill: var(--color-gris-corp); font-size: 15px; font-weight: 600; font-family: var(--font-base); }
+
+/* hover / foco / activo */
+.cm-node:hover .cm-halo,
+.cm-node:focus-visible .cm-halo,
+.cm-node.is-active .cm-halo { opacity: .18; }
+.cm-node:hover .cm-dot,
+.cm-node:focus-visible .cm-dot,
+.cm-node.is-active .cm-dot { fill: var(--color-azul-profundo); stroke: var(--color-azul-sama); }
+.cm-node:hover .cm-ico,
+.cm-node:focus-visible .cm-ico,
+.cm-node.is-active .cm-ico { color: #fff; }
+.cm-node:focus-visible .cm-dot { stroke-width: 4; }
+
+/* ---- Panel de detalle (debajo, usable en touch) ---- */
+.cm-panel {
+  margin-top: var(--space-5); display: flex; gap: var(--space-4); align-items: flex-start;
+  background: var(--color-azul-claro); border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5); border-left: 5px solid var(--color-azul-sama);
+}
+.cm-panel-num { flex: 0 0 auto; font-weight: 900; font-size: 2rem; line-height: 1; color: var(--color-azul-sama); }
+.cm-panel-body strong { display: block; font-size: 1.1rem; color: var(--color-azul-profundo); }
+.cm-panel-body p { margin-top: .35rem; }
+.cm-panel-detail { font-size: var(--fs-small); color: var(--color-texto-muted); }
+
+/* ---- Variantes ---- */
+.cm--compact .cm-label { font-size: 13px; }
+.cm--compact .cm-panel { padding: var(--space-3) var(--space-4); }
+/* estática (subpáginas de servicio): sin interacción ni panel destacado */
+.cm--static .cm-panel { display: none; }
+.cm--static .cm-node { cursor: default; }
+
+/* ---- SEO: contenido presente pero oculto visualmente ---- */
+.cm-seo {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}

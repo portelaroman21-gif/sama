@@ -1,0 +1,71 @@
+/* ============================================================
+   SAMA FORWARDING — Design Tokens (Módulo 1)
+   Fuente única de verdad de colores y tipografía de marca.
+   Cambiar un valor acá lo cambia en TODO el sitio.
+   OJO: el brief original tiene typos en los colores
+   (#04F82, #A4F82, #00AEFF). Estos son los valores correctos.
+   ============================================================ */
+
+:root {
+  /* ---- Color de marca ---- */
+  --color-azul-profundo: #0E76BC;   /* principal: fondos corporativos, acentos, primarios */
+  --color-azul-overlay:  #0A4F82;   /* capa azul 60-70% sobre fotos de cabecera */
+  --color-azul-sama:     #00AEEF;   /* acento: CTAs, highlights, numeración, cierres */
+  --color-gris-corp:     #404041;   /* textos secundarios y fondo del footer */
+  --color-azul-claro:    #EAF4FB;   /* fondos suaves de secciones, CTAs inline */
+  --color-footer-bottom: #2C2C2A;   /* franja inferior del footer (copyright) */
+
+  --color-blanco:        #FFFFFF;
+  --color-texto:         #1A1A1A;
+  --color-texto-muted:   #404041;
+
+  /* ---- Overlay héroes ---- */
+  --hero-overlay: rgba(10, 79, 130, 0.65);
+
+  /* ---- Tipografía (Montserrat self-host) ---- */
+  --font-base: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 900;
+
+  /* Escala tipográfica fluida */
+  --fs-h1: clamp(2rem, 5vw, 3.25rem);
+  --fs-h2: clamp(1.5rem, 3.5vw, 2.25rem);
+  --fs-h3: clamp(1.15rem, 2vw, 1.5rem);
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --lh-tight: 1.15;
+  --lh-body: 1.6;
+
+  /* ---- Espaciado ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2rem;
+  --space-6: 3rem;
+  --space-7: 4rem;
+  --space-8: 6rem;
+
+  /* ---- Layout ---- */
+  --container-max: 1200px;
+  --container-pad: clamp(1rem, 4vw, 2.5rem);
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-card: 0 8px 30px rgba(14, 118, 188, 0.12);
+  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.06);
+
+  /* ---- Header ---- */
+  --header-h: 72px;
+
+  /* ---- Transiciones ---- */
+  --t-fast: 150ms ease;
+  --t-base: 250ms ease;
+}
+
+/* Respetar preferencia de menos animaciones (regla de accesibilidad del doc) */
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-base: 0ms; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

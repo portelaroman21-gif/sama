@@ -1,0 +1,698 @@
+/* ============================================================
+   Componentes reales (Bloque 2). Usa tokens.css + base.css.
+   ============================================================ */
+
+/* ---- Logo (texto provisional hasta tener el SVG/blanco) ---- */
+.logo { font-weight: 900; font-size: 1.35rem; color: var(--color-azul-profundo); text-decoration: none; letter-spacing: -.02em; }
+.logo span { color: var(--color-azul-sama); }
+.logo--white, .logo--white span { color: #fff; }
+
+/* ---- Header ---- */
+.site-header { position: sticky; top: 0; z-index: 100; background: #fff; border-bottom: 1px solid #e6ebf0; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: var(--header-h); }
+.site-nav { display: flex; align-items: center; gap: 1rem; }
+.nav-list { display: flex; gap: .9rem; list-style: none; padding: 0; margin: 0; align-items: center; }
+.nav-list a { color: var(--color-gris-corp); text-decoration: none; font-weight: 600; font-size: .9rem; white-space: nowrap; }
+.nav-list .caret { white-space: nowrap; }
+.nav-list a:hover { color: var(--color-azul-profundo); }
+.nav-cta { white-space: nowrap; }
+
+/* Dropdown Servicios */
+.has-sub { position: relative; }
+.submenu {
+  position: absolute; top: 100%; left: 0; min-width: 250px; background: #fff;
+  border: 1px solid #e6ebf0; border-radius: var(--radius); box-shadow: var(--shadow-card);
+  list-style: none; padding: .5rem; margin: .5rem 0 0; opacity: 0; visibility: hidden;
+  transform: translateY(6px); transition: all var(--t-fast);
+}
+.has-sub:hover .submenu, .has-sub:focus-within .submenu { opacity: 1; visibility: visible; transform: translateY(0); }
+.submenu a { display: block; padding: .5rem .75rem; border-radius: 6px; font-weight: 500; }
+.submenu a:hover { background: var(--color-azul-claro); }
+.caret { font-size: .7em; }
+
+/* Botón hamburguesa (móvil) */
+.nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 8px; }
+.nav-toggle span { width: 26px; height: 3px; background: var(--color-azul-profundo); border-radius: 2px; transition: var(--t-fast); }
+
+.site-header--simple .header-inner { justify-content: space-between; }
+
+/* ---- Hero ---- */
+.hero { background: var(--color-azul-overlay); color: #fff; padding: var(--space-8) 0; position: relative; }
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(120deg, var(--color-azul-profundo), var(--color-azul-overlay));
+  opacity: .55; z-index: 0;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 820px; }
+.hero h1 { margin: .5rem 0; }
+.hero-apoyo { font-size: 1.15rem; opacity: .95; max-width: 640px; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: var(--space-4); }
+.hero--plain { padding: var(--space-7) 0; }
+.label--light { color: var(--color-azul-sama); }
+.btn--on-dark { color: #fff; border-color: #fff; }
+.btn--on-dark:hover { background: #fff; color: var(--color-azul-profundo); }
+
+/* ---- Utilidades de layout ---- */
+.narrow { max-width: 820px; }
+.center { text-align: center; margin-top: var(--space-4); }
+
+/* ---- Indicadores de confianza ---- */
+.ind-destacado { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 900; color: var(--color-azul-profundo); }
+.ind-list { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .75rem; }
+.ind-list li { background: var(--color-azul-claro); color: var(--color-azul-profundo); font-weight: 600; padding: .5rem 1rem; border-radius: 100px; font-size: .9rem; }
+
+/* ---- Grilla de servicios ---- */
+.serv-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 720px) { .serv-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .serv-grid { grid-template-columns: repeat(4, 1fr); } }
+.serv-card {
+  display: block; background: #fff; border: 1px solid #e6ebf0; border-radius: var(--radius-lg);
+  padding: var(--space-4); text-decoration: none; color: inherit; transition: var(--t-base); position: relative;
+}
+.serv-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.serv-card h3 { color: var(--color-azul-profundo); margin-bottom: .5rem; }
+.serv-card-link { display: inline-block; margin-top: .75rem; color: var(--color-azul-sama); font-weight: 600; }
+.serv-card--core { border-top: 6px solid var(--color-azul-sama); }
+@media (min-width: 1000px) { .serv-card--core { grid-row: span 1; transform: scale(1.02); } }
+.badge { position: absolute; top: -12px; left: var(--space-4); background: var(--color-azul-sama); color: #fff; font-size: .72rem; font-weight: 700; padding: 3px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: .04em; }
+
+/* ---- Proceso (3 pasos) ---- */
+.proceso { list-style: none; padding: 0; margin: var(--space-5) 0 0; display: grid; gap: var(--space-4); grid-template-columns: 1fr; counter-reset: paso; }
+@media (min-width: 800px) { .proceso { grid-template-columns: repeat(3, 1fr); } }
+.paso { background: #fff; border-radius: var(--radius-lg); padding: var(--space-4); border-left: 4px solid var(--color-azul-sama); }
+.paso-num { font-size: 2rem; font-weight: 900; color: var(--color-azul-sama); }
+.paso h3 { margin: .25rem 0 .5rem; color: var(--color-azul-profundo); }
+
+/* ---- Testimonios ---- */
+.testi-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 700px) { .testi-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .testi-grid { grid-template-columns: repeat(3, 1fr); } }
+.testi { background: var(--color-azul-claro); border-radius: var(--radius-lg); padding: var(--space-5); margin: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.testi blockquote { margin: 0; font-size: 1.1rem; font-style: italic; color: var(--color-gris-corp); }
+.testi figcaption { margin-top: 1rem; font-weight: 600; color: var(--color-azul-profundo); font-size: .9rem; }
+.testi--big { margin-top: var(--space-5); }
+.testi--big blockquote { font-size: 1.3rem; }
+
+/* ---- CTA de cierre ---- */
+.cta-cierre { background: var(--color-azul-profundo); color: #fff; padding: var(--space-7) 0; }
+.cta-inner { text-align: center; max-width: 700px; margin-inline: auto; }
+.cta-inner h2 { color: #fff; }
+.cta-inner p { opacity: .9; margin: .75rem 0 1.5rem; }
+.cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; align-items: center; }
+.cta-actions .wa-link { color: #fff; font-weight: 600; text-decoration: underline; }
+
+/* ---- Footer estándar (4 columnas) ---- */
+.site-footer { background: var(--color-gris-corp); color: #fff; }
+/* padding-block (no shorthand) para NO pisar el padding-inline del .container.
+   Antes usaba padding: ... 0 ... y el footer quedaba pegado al borde izq. */
+.footer-grid { display: grid; gap: var(--space-5); grid-template-columns: 1fr; padding-block: var(--space-6) var(--space-5); }
+@media (min-width: 600px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 960px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1.2fr 1.3fr; } }
+.footer-brand p { opacity: .82; font-size: .9rem; margin-top: .75rem; max-width: 340px; line-height: 1.55; }
+.footer-col h3 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: .75rem; color: var(--color-azul-sama); }
+.footer-col p, .footer-col a, .footer-list a { font-size: .9rem; }
+.site-footer a { color: #fff; text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
+.site-footer .wa-link { color: var(--color-azul-sama); }
+.footer-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .45rem; }
+.footer-contacto { font-style: normal; display: flex; flex-direction: column; gap: .45rem; }
+.footer-contacto p { opacity: .9; }
+.footer-resp { opacity: .65 !important; font-size: .82rem !important; }
+.footer-soc { display: flex; gap: .75rem; margin-top: 1rem; }
+.footer-soc a { color: #fff; display: inline-flex; opacity: .8; transition: color var(--t-fast), opacity var(--t-fast); }
+.footer-soc a:hover { color: var(--color-azul-sama); opacity: 1; }
+.footer-bottom { background: var(--color-footer-bottom); }
+.footer-bottom .container { padding-top: var(--space-3); padding-bottom: var(--space-3); }
+.footer-bottom p { font-size: .78rem; opacity: .7; margin: 0; line-height: 1.5; }
+
+/* ---- Footer simplificado (landing) ---- */
+.site-footer--simple { background: var(--color-footer-bottom); }
+.footer-simple-inner { display: flex; flex-direction: column; align-items: center; gap: .5rem; text-align: center; padding: var(--space-5) 0; }
+.footer-simple-data { font-size: .88rem; opacity: .9; }
+.footer-simple-legal { font-size: .78rem; opacity: .6; margin: 0; }
+
+/* ---- Breadcrumb ---- */
+.breadcrumb { background: var(--color-azul-claro); font-size: .85rem; }
+.breadcrumb ol { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; padding: .6rem 0; margin: 0; }
+.breadcrumb li:not(:last-child)::after { content: "/"; margin-left: .4rem; color: #9fb0bf; }
+.breadcrumb a { color: var(--color-azul-profundo); text-decoration: none; }
+
+/* ---- Pillar (Corredor) ---- */
+.corridor-wrap { margin: var(--space-4) 0; }
+.pillar { display: block; }
+.pillar-body { display: block; }
+.pillar-toc { display: none; }
+@media (min-width: 1024px) {
+  .pillar { display: grid; grid-template-columns: 240px 1fr; gap: var(--space-5); max-width: var(--container-max); margin-inline: auto; padding-inline: var(--container-pad); }
+  .pillar-body { padding-inline: 0; max-width: 820px; }
+  .pillar-toc { display: block; position: sticky; top: calc(var(--header-h) + 1rem); align-self: start; }
+  .pillar-toc ul { list-style: none; padding: 0; margin: .5rem 0 0; display: flex; flex-direction: column; gap: .4rem; }
+  .pillar-toc a { color: var(--color-gris-corp); text-decoration: none; font-size: .9rem; }
+  .pillar-toc a:hover { color: var(--color-azul-profundo); }
+  .toc-title { font-weight: 700; text-transform: uppercase; font-size: .75rem; letter-spacing: .05em; color: var(--color-azul-sama); }
+}
+.dato { background: var(--color-azul-claro); border-left: 5px solid var(--color-azul-sama); padding: var(--space-4); border-radius: 0 var(--radius) var(--radius) 0; margin-top: var(--space-4); }
+.dato-valor { font-size: 1.6rem; font-weight: 900; color: var(--color-azul-profundo); display: inline-block; margin-right: .5rem; }
+
+/* ---- Tabla de tiempos ---- */
+.tabla-wrap { overflow-x: auto; }
+.tiempos { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.tiempos th, .tiempos td { text-align: left; padding: .85rem 1rem; border-bottom: 1px solid #e6ebf0; vertical-align: top; }
+.tiempos thead th { background: var(--color-azul-profundo); color: #fff; }
+.tiempos tbody th { color: var(--color-azul-profundo); white-space: nowrap; }
+
+/* ---- Acordeones (riesgos / FAQ) ---- */
+details.riesgo, details.faq-item { border: 1px solid #e6ebf0; border-radius: var(--radius); margin-bottom: .75rem; background: #fff; }
+details summary { cursor: pointer; padding: 1rem 1.25rem; font-weight: 600; color: var(--color-azul-profundo); list-style: none; position: relative; }
+details summary::-webkit-details-marker { display: none; }
+details summary::after { content: "+"; position: absolute; right: 1.25rem; font-size: 1.3rem; color: var(--color-azul-sama); }
+details[open] summary::after { content: "–"; }
+.riesgo-body, .faq-body { padding: 0 1.25rem 1.25rem; }
+.riesgo-tag { padding: .5rem .75rem; border-radius: 6px; margin-bottom: .5rem; }
+.riesgo-tag--rojo { background: #fdecec; }
+.riesgo-tag--verde { background: #e9f7ed; }
+.riesgo-tag--azul { background: var(--color-azul-claro); }
+
+/* ---- Listas ---- */
+.incluye { padding-left: 1.2rem; }
+.incluye li { margin-bottom: .5rem; }
+
+/* ---- Nosotros ---- */
+.andrea-grid { align-items: center; }
+.andrea-foto, .team-foto {
+  background-size: cover; background-position: center; border-radius: var(--radius-lg);
+  background-color: var(--color-azul-claro);
+}
+.andrea-foto { min-height: 380px; }
+.team-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 720px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+.team-card { text-align: center; }
+.team-frase { font-style: italic; color: var(--color-azul-sama); font-weight: 600; margin-bottom: .75rem; }
+/* v2 N.2: fotos del equipo en círculo.
+   IMPORTANTE: width fijo + max-width para que NO colapse a 0 cuando está
+   dentro de un flex column con align-items:center (la imagen va como
+   background-image, sin tamaño intrínseco). */
+.team-foto {
+  width: 180px; max-width: 100%; aspect-ratio: 1;
+  margin: 0 auto .75rem; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%; overflow: hidden;
+  background-size: cover; background-position: center;
+  background-color: var(--color-azul-claro);
+}
+.team-card--dir .team-foto { width: 200px; }
+.team-foto--pendiente { border: 2px dashed #b9c4cf; color: #8a99a6; font-size: .85rem; }
+.team-cargo { color: var(--color-texto-muted); font-size: .9rem; }
+.valores { display: grid; gap: var(--space-4); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 640px) { .valores { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) { .valores { grid-template-columns: repeat(3, 1fr); } }
+.valor { background: #fff; border-radius: var(--radius); padding: var(--space-4); border-top: 3px solid var(--color-azul-sama); }
+.valor h3 { color: var(--color-azul-profundo); }
+
+/* ---- Casos ---- */
+.caso-grid { display: grid; gap: var(--space-4); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 720px) { .caso-grid { grid-template-columns: repeat(3, 1fr); } }
+.caso-card { display: block; background: #fff; border: 1px solid #e6ebf0; border-radius: var(--radius-lg); padding: var(--space-4); text-decoration: none; color: inherit; transition: var(--t-base); }
+.caso-card:hover { box-shadow: var(--shadow-card); transform: translateY(-3px); }
+.caso-card h3 { color: var(--color-azul-profundo); margin: .5rem 0; font-size: 1.15rem; }
+.caso-detalle { padding-block: var(--space-6); }
+.caso-bloque { margin-bottom: var(--space-5); }
+.caso-bloque h2 { color: var(--color-azul-profundo); font-size: 1.3rem; }
+
+/* ============================================================
+   Menú móvil
+   ============================================================ */
+/* Nombres largos del menú (v2) no entran horizontalmente hasta ~1240px.
+   Debajo de eso = menú hamburguesa (donde los nombres largos se ven bien). */
+@media (max-width: 1240px) {
+  .nav-toggle { display: flex; }
+  .site-nav {
+    position: fixed; inset: var(--header-h) 0 0 0; background: #fff; flex-direction: column;
+    justify-content: flex-start; padding: var(--space-5) var(--container-pad); gap: var(--space-4);
+    transform: translateX(100%); transition: transform var(--t-base); overflow-y: auto;
+  }
+  .site-nav.is-open { transform: translateX(0); }
+  .nav-list { flex-direction: column; align-items: stretch; gap: .5rem; width: 100%; }
+  .nav-list a { padding: .75rem 0; font-size: 1.1rem; border-bottom: 1px solid #f0f3f6; display: block; }
+  .submenu { position: static; opacity: 1; visibility: visible; transform: none; box-shadow: none; border: 0; padding-left: 1rem; margin: 0; }
+  .submenu a { font-size: .95rem; }
+  .nav-cta { width: 100%; }
+  body.nav-open { overflow: hidden; }
+}
+
+/* ============================================================
+   F8–F17 — Estilos de copy/maquetación nueva
+   ============================================================ */
+
+/* Grid de servicios: 5 cards responsivas (override del grid de 4) */
+.serv-grid { grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+.serv-card-ico { display: inline-flex; color: var(--color-azul-sama); margin-bottom: .5rem; }
+.serv-card--prio { border-top: 4px solid var(--color-azul-profundo); }
+
+/* Refuerzo bajo el mapa (home) */
+.refuerzo { max-width: 760px; margin: var(--space-4) auto 0; text-align: center; color: var(--color-texto-muted); }
+
+/* Tabla de tiempos: fila total destacada */
+.tiempos-total th, .tiempos-total td { font-weight: 700; background: var(--color-azul-claro); }
+
+/* Riesgos: punto rojo en el summary */
+.riesgo-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #d64545; margin-right: .5rem; vertical-align: middle; }
+
+/* Proceso compacto (qué pasa después) */
+.proceso--mini .paso { padding: var(--space-3) 0; }
+
+/* Chips de caso */
+.caso-chips { margin-bottom: var(--space-4); }
+.chip { display: inline-block; background: var(--color-azul-claro); color: var(--color-azul-profundo); font-size: .8rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-right: .4rem; }
+.caso-card-ctx { opacity: .9; }
+.caso-card-res { margin-top: .5rem; font-size: .92rem; }
+
+/* ---- Diagnóstico (F16) ---- */
+.diag { padding: var(--space-7) 0; background: var(--color-azul-claro); }
+.diag-grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 900px) { .diag-grid { grid-template-columns: 1fr 1fr; gap: var(--space-7); } }
+.diag-hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); margin: .5rem 0; }
+.diag-sub { color: var(--color-texto-muted); line-height: var(--lh-body); }
+.diag-bullets { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: .75rem; }
+.diag-bullets li { padding-left: 1.75rem; position: relative; }
+.diag-bullets li::before { content: "✓"; position: absolute; left: 0; color: var(--color-azul-sama); font-weight: 900; }
+.diag-form-wrap { background: #fff; border-radius: 8px; box-shadow: var(--shadow-card); padding: clamp(1.25rem, 4vw, 2rem); }
+.campos { display: grid; gap: var(--space-3); }
+.campo { display: flex; flex-direction: column; gap: .35rem; }
+.campo label { font-weight: 600; font-size: .9rem; }
+.campo input, .campo select, .campo textarea { font: inherit; padding: .65rem .75rem; border: 1px solid #cdd7e0; border-radius: 6px; background: #fff; width: 100%; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: 2px solid var(--color-azul-sama); outline-offset: 1px; border-color: var(--color-azul-sama); }
+.campo textarea { resize: vertical; }
+.req { color: #d64545; }
+.opt { color: var(--color-texto-muted); font-weight: 400; font-size: .8rem; }
+.campo-ayuda { color: var(--color-texto-muted); font-size: .78rem; }
+.btn--block { display: block; width: 100%; margin-top: var(--space-4); }
+.diag-privacidad { font-size: .78rem; color: var(--color-texto-muted); margin-top: var(--space-3); }
+
+/* ---- Contacto (F17) ---- */
+.contacto-grid { gap: var(--space-6); align-items: start; }
+.datos-list { list-style: none; margin: var(--space-4) 0 0; padding: 0; display: grid; gap: .75rem; }
+.datos-list a { color: var(--color-azul-profundo); }
+.contacto-form-wrap { background: #fff; border: 1px solid #e6ebf0; border-radius: var(--radius-lg); padding: clamp(1.25rem, 4vw, 2rem); display: grid; gap: var(--space-3); }
+.contacto-form { display: grid; gap: var(--space-3); }
+.mapa-embed { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
+.mapa-embed iframe { width: 100%; height: 300px; border: 0; display: block; }
+@media (max-width: 600px) { .mapa-embed iframe { height: 200px; } }
+.cta-suave { background: var(--color-azul-claro); padding: var(--space-6) 0; }
+.cta-suave p { font-weight: 600; margin-bottom: var(--space-3); }
+
+/* ---- Gracias ---- */
+.gracias .cta-actions { justify-content: center; margin-top: var(--space-4); }
+
+/* ---- 404 (F15) ---- */
+.error-404 { text-align: center; }
+.error-num { font-weight: 900; font-size: clamp(4.5rem, 14vw, 7.5rem); line-height: 1; color: var(--color-azul-profundo); margin: 0; }
+.error-cards { display: grid; gap: var(--space-3); grid-template-columns: 1fr; max-width: 520px; margin: var(--space-5) auto 0; }
+@media (min-width: 560px) { .error-cards { grid-template-columns: 1fr 1fr; } }
+.error-card { background: #fff; border: 1px solid #e6ebf0; border-radius: var(--radius); padding: var(--space-4); font-weight: 600; color: var(--color-azul-profundo); text-decoration: none; transition: var(--t-base); }
+.error-card:hover { box-shadow: var(--shadow-card); transform: translateY(-2px); }
+.error-wa { margin-top: var(--space-5); }
+
+/* ---- Página legal (Aviso de privacidad) ---- */
+.legal h2 { color: var(--color-azul-profundo); margin-top: var(--space-5); font-size: 1.2rem; }
+.legal p { margin-top: .5rem; }
+
+/* ---- Ilustración del corredor en la 404 ---- */
+.error-ilus { width: min(360px, 100%); height: auto; margin: 0 auto var(--space-4); display: block; }
+.error-ilus .e-mar { stroke: var(--color-azul-sama); }
+.error-ilus .e-tierra { stroke: var(--color-azul-profundo); }
+.error-ilus .e-origen { fill: var(--color-azul-sama); }
+.error-ilus .e-puerto { fill: #fff; stroke: var(--color-azul-profundo); stroke-width: 3; }
+.error-ilus .e-destino { stroke: var(--color-azul-profundo); fill: #fff; }
+.error-ilus .e-cap { fill: var(--color-texto-muted); font-size: 12px; font-weight: 600; }
+
+/* ============================================================
+   Copy textual + assets — heros con media, animaciones, etc.
+   ============================================================ */
+
+/* ---- Logo imagen (footer) ---- */
+/* Logos: el archivo entregado por el cliente es cuadrado (600x600).
+   IMPORTANTE: el .logo-img es inline-flex y vive dentro de un flex
+   container — por eso el img necesita width fijo + flex-shrink:0 para
+   NO colapsar a width:0. */
+/* Logo horizontal (recortado sin relleno, ~2.85:1). height fijo + width:auto. */
+.logo-img { display: inline-flex; align-items: center; flex-shrink: 0; }
+.logo-img img { height: 42px; width: auto; max-width: none; display: block; flex-shrink: 0; }
+.logo-img--footer img { height: 58px; }
+.footer-simple-inner .logo-img img { height: 42px; margin: 0 auto; }
+@media (max-width: 560px) { .logo-img img { height: 34px; } }
+
+/* ---- Hero con imagen/video de fondo + overlay azul profundo ---- */
+.hero--media { position: relative; overflow: hidden; padding: var(--space-8) 0; }
+.hero--media::before { display: none; }
+.hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.hero-overlay { position: absolute; inset: 0; background: var(--color-azul-overlay); opacity: .68; z-index: 0; }
+.page-corredor .hero h1 { font-size: clamp(1.5rem, 3.6vw, 2.5rem); }
+
+/* ---- Corredor: pillar a una columna + texto a 2 columnas ---- */
+.pillar--full { display: block; }
+.pillar--full .pillar-body { max-width: 880px; margin-inline: auto; padding-inline: var(--container-pad); }
+@media (min-width: 900px) {
+  .porque-cols { column-count: 2; column-gap: var(--space-5); }
+  .porque-cols p { break-inside: avoid; margin-bottom: 1rem; }
+}
+
+/* ---- Riesgos: 3 columnas de color en desktop ---- */
+@media (min-width: 760px) { .riesgo-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; } }
+.riesgo-tag strong { display: block; margin-bottom: .25rem; font-size: .85rem; }
+
+/* ---- Indicadores: contador + industrias con íconos ---- */
+.ind-num { font-size: clamp(2.6rem, 7vw, 4.25rem); font-weight: 900; color: var(--color-azul-profundo); line-height: 1; }
+.ind-anios { font-size: clamp(1.2rem, 3vw, 1.9rem); font-weight: 700; color: var(--color-azul-profundo); }
+.ind-sub { color: var(--color-texto-muted); margin-top: .15rem; }
+.ind-trabajamos { margin-top: var(--space-5); font-weight: 600; }
+.ind-list li { display: inline-flex; align-items: center; gap: .5rem; }
+.ind-ico { display: inline-flex; color: var(--color-azul-sama); }
+.ind-ico svg { width: 22px; height: 22px; }
+[data-reveal] li { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+[data-reveal].is-revealed li { opacity: 1; transform: none; }
+[data-reveal].is-revealed li:nth-child(2) { transition-delay: .07s; }
+[data-reveal].is-revealed li:nth-child(3) { transition-delay: .14s; }
+[data-reveal].is-revealed li:nth-child(4) { transition-delay: .21s; }
+[data-reveal].is-revealed li:nth-child(5) { transition-delay: .28s; }
+[data-reveal].is-revealed li:nth-child(6) { transition-delay: .35s; }
+
+/* ---- Proceso: ícono por paso + conector ---- */
+.paso--proc { position: relative; }
+.paso-ico { display: inline-flex; color: var(--color-azul-sama); margin-bottom: .25rem; }
+.paso-ico svg { width: 40px; height: 40px; }
+@media (min-width: 800px) {
+  .paso--proc::after { content: ""; position: absolute; top: 34px; left: 100%; width: var(--space-4); height: 2px; background: var(--color-azul-sama); opacity: .4; }
+  .paso--proc:last-child::after { display: none; }
+}
+
+/* ---- Servicio core: fondo color principal (sin badge) ---- */
+.serv-card--core { border-top: 0; background: var(--color-azul-profundo); color: #fff; }
+.serv-card--core h3, .serv-card--core p { color: #fff; }
+.serv-card--core .serv-card-ico { color: #fff; }
+
+/* ---- Equipo: 3 tarjetas, dirección al centro ---- */
+@media (min-width: 760px) {
+  .team-grid--3 { grid-template-columns: 1fr 1.5fr 1fr; align-items: start; gap: var(--space-5); }
+}
+.team-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: var(--space-4); border-radius: var(--radius-lg); background: #fff; border: 1px solid #e6ebf0; }
+.team-card .team-foto { margin: 0 0 .9rem; }
+.team-card h3 { margin: .25rem 0 .15rem; color: var(--color-azul-profundo); }
+.team-card .team-cargo { color: var(--color-texto-muted); font-size: .85rem; margin: 0 0 .6rem; }
+.team-card .team-frase { font-style: italic; color: var(--color-azul-sama); font-weight: 600; margin: 0 0 .8rem; }
+.team-card--dir { background: var(--color-azul-claro); border-color: transparent; padding: var(--space-5); }
+.team-card--dir .team-foto { max-width: 200px; }
+.team-card--dir .label { margin-bottom: .5rem; }
+.team-perfil { text-align: left; }
+.team-li { margin-top: auto; padding-top: .6rem; }
+.team-perfil { text-align: left; margin-top: var(--space-3); }
+.team-perfil p { font-size: .9rem; margin-bottom: .6rem; color: var(--color-texto-muted); }
+
+/* ---- Valores: 5 cards con copy ---- */
+@media (min-width: 1000px) { .valores--5 { grid-template-columns: repeat(5, 1fr); } }
+.valor { border-top-width: 2px; }
+.valor-sub { color: var(--color-azul-sama); font-weight: 600; font-size: .85rem; margin: .25rem 0 .6rem; }
+.valor-copy { font-size: .85rem; color: var(--color-texto-muted); line-height: 1.5; }
+
+/* ---- Filtro de casos (pills) ---- */
+.filtro-pills { display: flex; flex-wrap: wrap; gap: .5rem; margin: var(--space-4) 0 var(--space-5); }
+.pill { font: inherit; font-size: .85rem; font-weight: 600; padding: .45rem 1.1rem; border-radius: 999px; border: 1px solid var(--color-azul-profundo); background: transparent; color: var(--color-azul-profundo); cursor: pointer; transition: var(--t-fast); }
+.pill:hover { background: var(--color-azul-claro); }
+.pill.is-active { background: var(--color-azul-sama); border-color: var(--color-azul-sama); color: #fff; }
+.caso-card.is-hidden { display: none; }
+
+/* ---- CTA suave (contacto) ---- */
+.cta-suave-grid { align-items: center; gap: var(--space-5); }
+.cta-suave-action { margin-top: var(--space-3); }
+@media (min-width: 640px) { .cta-suave-grid { grid-template-columns: 1.6fr 1fr; } .cta-suave-action { margin-top: 0; text-align: right; } }
+.form-sub { color: var(--color-texto-muted); font-size: .9rem; margin-bottom: var(--space-3); }
+
+/* ---- Blog ---- */
+.blog-autoria { font-style: italic; opacity: .92; margin-top: .5rem; }
+.blog-pronto { text-align: center; color: var(--color-texto-muted); padding: var(--space-5) 0; }
+.leadmagnet { align-items: center; }
+.leadmagnet-mock { aspect-ratio: 3/4; max-width: 190px; background: linear-gradient(135deg, var(--color-azul-profundo), var(--color-azul-sama)); border-radius: var(--radius); display: grid; place-items: center; color: #fff; font-weight: 900; letter-spacing: .15em; box-shadow: var(--shadow-card); }
+.leadmagnet-form { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: var(--space-3); }
+.leadmagnet-form input { flex: 1; min-width: 200px; padding: .65rem .75rem; border: 1px solid #cdd7e0; border-radius: 6px; font: inherit; }
+.blog-meta { color: var(--color-texto-muted); font-size: .9rem; }
+.blog-img { aspect-ratio: 16/9; background: var(--color-azul-claro); border-radius: var(--radius); margin: var(--space-3) 0; }
+.blog-articulo h2 { margin-top: var(--space-4); color: var(--color-azul-profundo); }
+.cta-inline { background: var(--color-azul-claro); border-left: 4px solid var(--color-azul-sama); border-radius: 0 var(--radius) var(--radius) 0; padding: var(--space-4); margin: var(--space-5) 0; }
+.cta-inline h3 { color: var(--color-azul-profundo); margin-bottom: .4rem; }
+.blog-firma { margin-top: var(--space-4); }
+
+/* ============================================================
+   Ronda de ajustes (reporte de cambios del cliente)
+   ============================================================ */
+
+/* Hero menos alto (Corredor/Servicios/Casos) */
+.hero--short { padding-block: clamp(2rem, 5vw, 3.5rem); }
+.hero--media .hero-media { object-position: center; }
+
+/* Contador "+11 Años" + "Operando el corredor" al lado, negro */
+.ind-contador { display: flex; align-items: baseline; flex-wrap: wrap; gap: .35rem .7rem; margin: 0; }
+.ind-num { font-size: clamp(2.6rem, 7vw, 4.25rem); font-weight: 900; color: var(--color-azul-profundo); line-height: 1; }
+.ind-anios { font-size: clamp(1.4rem, 3.4vw, 2.2rem); font-weight: 800; color: var(--color-azul-profundo); }
+.ind-sub { font-size: clamp(1rem, 1.6vw, 1.25rem); font-weight: 600; color: var(--color-texto); align-self: flex-end; }
+
+/* Íconos de rubros: tamaño uniforme */
+.ind-ico svg { width: 24px; height: 24px; }
+
+/* Íconos de pasos del proceso más chicos (como servicios) */
+.paso-ico svg { width: 30px; height: 30px; }
+
+/* Mapa del corredor: head con solo pills → ancho completo */
+.mc-head > .mc-pills:only-child { flex-basis: 100%; }
+
+/* ---- Cards FLIP (tiempos del corredor + valores de Nosotros) ---- */
+.flip-grid { display: grid; gap: var(--space-3); grid-template-columns: repeat(2, 1fr); margin-top: var(--space-5); }
+@media (min-width: 760px) { .flip-grid { grid-template-columns: repeat(3, 1fr); } }
+.flip { perspective: 1200px; cursor: pointer; min-height: 200px; }
+.flip-inner { position: relative; width: 100%; min-height: 200px; transition: transform .55s; transform-style: preserve-3d; }
+.flip:hover .flip-inner, .flip:focus-within .flip-inner, .flip.is-flipped .flip-inner { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute; inset: 0;
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  border-radius: var(--radius-lg); padding: var(--space-4);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.flip-front { background: #fff; border: 1px solid #e6ebf0; border-left: 4px solid var(--color-azul-sama); }
+.flip-back  { background: var(--color-azul-profundo); color: #fff; transform: rotateY(180deg); border-radius: var(--radius-lg); }
+.flip-back p { margin: 0; font-size: .9rem; line-height: 1.5; }
+.flip-etapa { font-weight: 700; color: var(--color-azul-profundo); }
+.flip-tiempo { font-size: 1.5rem; font-weight: 900; color: var(--color-azul-sama); margin-top: .4rem; }
+.flip--total .flip-front { background: var(--color-azul-claro); }
+.valor-flip { min-height: 240px; }
+.valor-flip .flip-inner { min-height: 240px; }
+.valor-flip .flip-front h3 { color: var(--color-azul-profundo); margin: 0; }
+.valor-flip .valor-sub { color: var(--color-azul-sama); font-weight: 600; font-size: .9rem; margin: .5rem 0 0; }
+.valor-flip .flip-back p { font-size: .82rem; line-height: 1.45; }
+
+/* Valores: grid 3+2 (12 cols → 4+4+4 / 6+6) en desktop */
+.valores--flip { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 640px) { .valores--flip { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) {
+  .valores--flip { grid-template-columns: repeat(12, 1fr); }
+  .valores--flip .valor-flip:nth-child(1),
+  .valores--flip .valor-flip:nth-child(2),
+  .valores--flip .valor-flip:nth-child(3) { grid-column: span 4; }
+  .valores--flip .valor-flip:nth-child(4),
+  .valores--flip .valor-flip:nth-child(5) { grid-column: span 6; }
+}
+
+/* ---- Riesgos: tabla 3 columnas de color ---- */
+.riesgo-tabla { display: flex; flex-direction: column; gap: var(--space-3); margin-top: var(--space-4); }
+.rt-row { display: grid; grid-template-columns: 1fr; gap: 8px; }
+@media (min-width: 760px) { .rt-row { grid-template-columns: 1fr 1fr 1fr; } }
+.rt-cell { padding: var(--space-4); border-radius: var(--radius); font-size: .9rem; line-height: 1.45; color: #3a4a63; }
+.rt-lbl { display: block; font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; margin-bottom: .5rem; }
+/* v2 C.1: título del riesgo como H3 real + explicación en <p> */
+.rt-titulo { font-size: 1.02rem; font-weight: 700; color: #13243f; margin: 0 0 .45rem; line-height: 1.25; }
+.rt-cell p { margin: 0; }
+.rt-cell strong { color: #13243f; }
+.rt-rojo { background: #fdecec; } .rt-rojo .rt-lbl { color: #c0392b; }
+.rt-verde { background: #e9f7ed; } .rt-verde .rt-lbl { color: #1e7e45; }
+.rt-azul { background: var(--color-azul-claro); } .rt-azul .rt-lbl { color: var(--color-azul-profundo); }
+
+/* ---- Servicios: grid 3 arriba / 2 abajo (12 col → 4+4+4 / 6+6) ---- */
+.serv-grid--5 { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-top: var(--space-5); }
+@media (min-width: 720px) {
+  .serv-grid--5 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 960px) {
+  .serv-grid--5 { grid-template-columns: repeat(12, 1fr); }
+  .serv-grid--5 .serv-card:nth-child(1),
+  .serv-grid--5 .serv-card:nth-child(2),
+  .serv-grid--5 .serv-card:nth-child(3) { grid-column: span 4; }
+  .serv-grid--5 .serv-card:nth-child(4),
+  .serv-grid--5 .serv-card:nth-child(5) { grid-column: span 6; }
+}
+
+/* ---- Equipo: botón LinkedIn ---- */
+.team-li { display: inline-flex; align-items: center; gap: .4rem; margin-top: .7rem; color: var(--color-azul-profundo); font-weight: 600; font-size: .85rem; text-decoration: none; }
+.team-li:hover { color: var(--color-azul-sama); }
+
+/* ---- Diagnóstico: cards de pasos más grandes ---- */
+.proceso--mini .paso { padding: var(--space-4) var(--space-4); }
+.proceso--mini .paso p { font-size: 1rem; }
+
+/* ---- Contacto: mapa full-width + CTA ---- */
+.mapa-embed--full { border-radius: 0; box-shadow: none; }
+.mapa-embed--full iframe { height: clamp(300px, 42vh, 460px); }
+.cta-suave { padding: var(--space-7) 0; }
+.cta-suave-action { display: flex; justify-content: center; margin-top: var(--space-3); }
+@media (min-width: 640px) { .cta-suave-action { justify-content: flex-end; margin-top: 0; } }
+
+/* ---- Casos: mensaje de filtro vacío ---- */
+.caso-empty { text-align: center; color: var(--color-texto-muted); padding: var(--space-5) 0; }
+
+/* ============================================================
+   Ronda v2 — ajustes finales
+   ============================================================ */
+
+/* WhatsApp ícono en el footer (no nombre+teléfono) */
+.footer-contacto-col .wa-link--ico { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--color-azul-sama); color: #fff; margin-top: .8rem; transition: background var(--t-fast); }
+.footer-contacto-col .wa-link--ico:hover { background: var(--color-azul-profundo); text-decoration: none; }
+.footer-contacto-col .wa-link--ico svg { display: block; }
+
+/* Contador sin "+" — ind-num ahora muestra solo el número */
+.ind-num::before { content: none; }
+
+/* Cards de servicio tipo flip (igual a tiempos del corredor).
+   v2 S.2: grid 3+2 con 12 cols. Flete (core) con fondo color principal. */
+.serv-grid--flip { display: grid; gap: var(--space-3); grid-template-columns: 1fr; margin-top: var(--space-5); }
+@media (min-width: 640px) { .serv-grid--flip { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 960px) {
+  .serv-grid--flip { grid-template-columns: repeat(12, 1fr); }
+  /* 4 cards en v2: 3 arriba + 1 abajo centrado (o 2+2 si querés simétrico).
+     Mantengo 3+1 — el "+1" abajo ocupa 12 cols centrado para Flete destacado.
+     Si en el futuro vuelven a ser 5, hay otra clase 3+2 abajo. */
+  .serv-grid--flip .flip--serv:nth-child(1),
+  .serv-grid--flip .flip--serv:nth-child(2),
+  .serv-grid--flip .flip--serv:nth-child(3) { grid-column: span 4; }
+  .serv-grid--flip .flip--serv:nth-child(4) { grid-column: 4 / span 6; }
+}
+.flip--serv { min-height: 180px; }
+.flip--serv .flip-inner { min-height: 180px; }
+.flip--serv .flip-front { align-items: center; text-align: center; gap: .5rem; }
+.flip--serv .flip-front h3 { margin: 0; color: var(--color-azul-profundo); }
+.flip--serv .serv-card-ico { color: var(--color-azul-sama); }
+.flip--serv-core .flip-front { background: var(--color-azul-profundo); border-color: transparent; }
+.flip--serv-core .flip-front h3 { color: #fff; }
+.flip--serv-core .serv-card-ico { color: #fff; }
+
+/* Páginas de gracias con más diseño (GR.1) */
+.gracias--hero { background: linear-gradient(135deg, var(--color-azul-profundo), var(--color-azul-overlay)); color: #fff; padding-block: var(--space-8); }
+.gracias--hero h1 { color: #fff; }
+.gracias--hero .lead, .gracias--hero p { color: rgba(255,255,255,.92); }
+.gracias--hero .label { color: var(--color-azul-sama); }
+.gracias-check { display: inline-flex; color: var(--color-azul-sama); margin-bottom: var(--space-3); }
+.gracias-check svg { display: block; }
+.gracias-suave { background: var(--color-azul-claro); }
+.gracias .cta-actions { justify-content: center; margin-top: var(--space-4); }
+
+/* Contacto v2 CT.1: mapa adentro de la columna izquierda */
+.contacto-izq { display: flex; flex-direction: column; gap: var(--space-3); }
+.mapa-embed--col { width: 100%; height: 280px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); margin-top: var(--space-3); }
+.mapa-embed--col iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+/* (Footer logo: el tamaño ya está definido en .logo-img--footer img arriba.) */
+.footer-contacto-col { display: flex; flex-direction: column; }
+
+/* FAQ con items (v2 C.5) */
+.faq-items { list-style: disc; padding-left: 1.4rem; margin: .5rem 0 0; }
+.faq-items li { margin: .3rem 0; line-height: 1.5; }
+
+/* v2 D.1: "Qué pasa después" dentro de la columna izquierda del diagnóstico.
+   El proceso va apilado (1 columna), no en 3 columnas como en Home. */
+.diag-pasos { margin-top: var(--space-5); }
+.diag-pasos h3 { color: var(--color-azul-profundo); margin-bottom: var(--space-3); }
+.diag-pasos .proceso { grid-template-columns: 1fr; gap: var(--space-3); margin-top: 0; }
+.diag-pasos .paso { display: flex; align-items: flex-start; gap: .75rem; padding: var(--space-3); }
+.diag-pasos .paso-num { font-size: 1.4rem; flex: none; }
+.diag-pasos .paso p { margin: 0; }
+
+/* ============================================================
+   Endurecimiento responsive (revisión tablet + celular)
+   ============================================================ */
+
+/* Anti scroll horizontal por el mapa full-bleed (100vw incluye scrollbar).
+   overflow-x: clip NO rompe el position:sticky del header. */
+html, body { overflow-x: clip; }
+
+/* Tiempos (flip): 2 columnas apretaban en celular → 1 col en <520px */
+@media (max-width: 520px) {
+  .flip-grid { grid-template-columns: 1fr; }
+}
+
+/* Equipo: 3 tarjetas al lado solo desde 900px (Andrea tiene bio larga;
+   en tablet portrait se apila para que respire). Debajo de 900 = 1 columna. */
+@media (min-width: 760px) and (max-width: 899px) {
+  .team-grid--3 { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; }
+  .team-card--dir { order: -1; } /* Andrea primero al apilar */
+}
+
+/* Mapa del corredor en celular: NO forzar min-height (rompía la
+   alineación de insignias/ruta/mapas al descoordinar los aspectos).
+   Se mantiene el aspect-ratio 1200/520 para que todo escale junto y las
+   insignias caigan sobre la ruta. Se achican insignias y etiquetas para
+   que 5 puntos entren sin encimarse en pantalla angosta. */
+@media (max-width: 640px) {
+  .mc-h2 { font-size: clamp(20px, 6vw, 28px); }
+  .mc-pills { flex-basis: 100%; }
+  .mc-badge { width: 30px; height: 30px; font-size: 12px; }
+  .mc-ring { width: 130%; height: 130%; border-width: 2px; }
+  .mc-manzanillo { font-size: 9px; top: 88%; }
+  .mc-flag span { font-size: 10px; }
+  .mc-flag img { width: 18px; height: 12px; }
+}
+
+/* Riesgos: 3 columnas de color solo desde 860px; en tablet portrait se
+   apilan (lectura más clara), manteniendo los 3 colores. */
+@media (min-width: 760px) and (max-width: 859px) {
+  .rt-row { grid-template-columns: 1fr; }
+}
+
+/* Diagnóstico: en la columna izquierda, el "qué pasa después" con pasos
+   apilados ya está OK; aseguro que en <900 (form debajo) tenga aire. */
+@media (max-width: 899px) {
+  .diag-grid { gap: var(--space-6); }
+  .diag-pasos { margin-top: var(--space-4); }
+}
+
+/* Contacto: el mapa dentro de la columna izquierda, alto cómodo en mobile */
+@media (max-width: 640px) {
+  .mapa-embed--col { height: 240px; }
+}
+
+/* Hero: en celular, menos padding vertical y línea del CTA que no desborde */
+@media (max-width: 560px) {
+  .hero { padding-block: var(--space-6); }
+  .hero-actions .btn { flex: 1 1 auto; text-align: center; }
+  .cta-actions { flex-direction: column; align-items: stretch; }
+  .cta-actions .btn { width: 100%; }
+}
+
+/* Tablas / contenido ancho: scroll interno si algo se pasa (defensivo) */
+.tabla-wrap { overflow-x: auto; }
+
+/* Hero de Nosotros (foto 48 del equipo): las 3 cabezas están al ~28% de
+   altura, así que el crop del hero se ancla ahí para que no corte caras. */
+.page-nosotros .hero-media { object-position: center 28%; }
+
+/* ---- Formularios de leads: honeypot oculto + mensaje de error ---- */
+.hp-field { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+.form-error {
+  color: #b3261e; background: #fde8e6; border: 1px solid #f5c6c2;
+  padding: 10px 12px; border-radius: 8px; font-size: .95rem; margin: 0 0 var(--space-3);
+}
+
+/* ---- Selector de idioma (bilingüe ES/EN) ---- */
+.lang-toggle {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 11px; border: 1px solid rgba(14, 118, 188, .28); border-radius: 999px;
+  font-weight: 700; font-size: .85rem; text-decoration: none; color: var(--color-azul-profundo);
+  background: #fff; white-space: nowrap; transition: background var(--t-fast), border-color var(--t-fast);
+}
+.lang-toggle:hover { background: var(--color-azul-claro); border-color: var(--color-azul-sama); }
+.lang-toggle .flag { display: block; border-radius: 2px; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0, 0, 0, .06); }
